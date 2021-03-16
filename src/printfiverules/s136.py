@@ -2,6 +2,8 @@ from fpdf import FPDF
 
 def create_pdf(input):
 
+    import pdb; pdb.set_trace()
+
     pdf = FPDF(orientation='P', unit='mm', format='A4')
     pdf.add_page()
 
