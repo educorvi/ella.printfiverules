@@ -1,15 +1,23 @@
 from fpdf import FPDF
+from pathlib import Path
 
 def create_pdf(input):
-
-    import pdb; pdb.set_trace()
 
     pdf = FPDF(orientation='P', unit='mm', format='A4')
     pdf.add_page()
 
-    pdf.add_font('DGUVMeta-Normal', '', 'DGUVMeta-Normal.ttf', uni=True)
-    pdf.add_font('DGUVMeta-Bold', '', 'DGUVMeta-Bold.ttf', uni=True)
-    pdf.add_font('DGUVMeta-NormalItalic', '', 'DGUVMeta-NormalItalic.ttf', uni=True)
+    base_path = Path(__file__).parent
+    dguvnormalpath = (base_path / "resources/fonts/DGUVMeta-Normal.ttf").resolve()
+    dguvboldpath = (base_path / "resources/fonts/DGUVMeta-Bold.ttf").resolve()
+    dguvnormalitalicpath = (base_path / "resources/fonts/DGUVMeta-NormalItalic.ttf").resolve()
+
+    #pdf.add_font('DGUVMeta-Normal', '', 'DGUVMeta-Normal.ttf', uni=True)
+    #pdf.add_font('DGUVMeta-Bold', '', 'DGUVMeta-Bold.ttf', uni=True)
+    #pdf.add_font('DGUVMeta-NormalItalic', '', 'DGUVMeta-NormalItalic.ttf', uni=True)
+
+    pdf.add_font('DGUVMeta-Normal', '', dguvnormalpath, uni=True)
+    pdf.add_font('DGUVMeta-Bold', '', dguvboldpath, uni=True)
+    pdf.add_font('DGUVMeta-NormalItalic', '', dguvnormalitalicpath, uni=True)
 
     pdf.image("newtemplate2_seite1.jpg", x=-4, y=-8, w=217, h=313)
 
