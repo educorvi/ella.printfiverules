@@ -149,7 +149,8 @@ def create_pdf(input):
     #Adding new page
 
     pdf.add_page()
-    pdf.image("newtemplate6_seite2.jpg", x=-4, y=-8, w=217, h=313)
+    template6page2path = (base_path / "resources/images/newtemplate6_seite2.jpg").resolve()
+    pdf.image(str(template6page2path), x=-4, y=-8, w=217, h=313)
 
     # 1 Freigeschaltet
 
