@@ -12,21 +12,11 @@ def create_pdf(input):
     dguvboldpath = (base_path / "resources/fonts/DGUVMeta-Bold.ttf").resolve()
     dguvnormalitalicpath = (base_path / "resources/fonts/DGUVMeta-NormalItalic.ttf").resolve()
 
-    #pdf.add_font('DGUVMeta-Normal', '', 'DGUVMeta-Normal.ttf', uni=True)
-    #pdf.add_font('DGUVMeta-Bold', '', 'DGUVMeta-Bold.ttf', uni=True)
-    #pdf.add_font('DGUVMeta-NormalItalic', '', 'DGUVMeta-NormalItalic.ttf', uni=True)
-
     pdf.add_font('DGUVMeta-Normal', '', dguvnormalpath, uni=True)
     pdf.add_font('DGUVMeta-Bold', '', dguvboldpath, uni=True)
     pdf.add_font('DGUVMeta-NormalItalic', '', dguvnormalitalicpath, uni=True)
 
     template2page1path = (base_path / "resources/images/newtemplate2_seite1.jpg").resolve()
-    #template2page1 = open(template2page1path, 'rb')
-    #template2page1 = template2page1.read()
-    #pdf.image("newtemplate2_seite1.jpg", x=-4, y=-8, w=217, h=313)
-
-    #import pdb; pdb.set_trace()
-
     pdf.image(str(template2page1path), x=-4, y=-8, w=217, h=313)
 
     data = {}
