@@ -73,15 +73,6 @@ def create_pdf(input):
     elif data["ort_der_freischaltung1a"] == "Maststation":
         data["nroderbezeichnung1a"] = input.get('#/properties/edi1e9e665dbf2a4118ba84a6910cfe9842')
 
-    data["zusaetzlichfreigeschaltet1a"] = input.get('#/properties/edi39026745e38e4279b3113e51c8d76d50')
-
-    if data["zusaetzlichfreigeschaltet1a"] == [
-        'im Hausanschlusskasten (wegen dezentraler Einspeisung, z. B. PV-Anlage, BHKW)']:
-        data[
-            "zusaetzlichfreigeschaltet1a"] = 'im Hausanschlusskasten (wegen dezentraler Einspeisung, z. B. PV-Anlage, BHKW)'
-    else:
-        data["zusaetzlichfreigeschaltet1a"] = ''
-
     # 1B
 
     data["art_der_freischaltung1b"] = input.get('#/properties/edi0eb8d7909c5c439b9df0667d36440b38')
