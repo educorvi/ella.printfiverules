@@ -137,6 +137,58 @@ def create_pdf(input):
     pdf.set_xy(72.2, 231.6)
     pdf.cell(0, 0, data.get("abgrenzung_arbeitsbereich_nein"))
 
+    # Adding new page
+
+    pdf.add_page()
+    template7page2path = (base_path / "resources/images/newtemplate7_seite2.jpg").resolve()
+    pdf.image(str(template7page2path), x=-4, y=-8, w=217, h=313)
+
+    # 1a Freigeschaltet Ausschaltstelle 1
+
+    pdf.set_font('DGUVMeta-Bold', '', 10)
+    pdf.set_text_color(35, 31, 32)
+    pdf.set_xy(12.7, 29.2)
+    pdf.cell(0, 0, 'Wie erfolgte die Freischaltung?')
+
+    pdf.set_font('DGUVMeta-Normal', '', 10)
+    pdf.set_text_color(0, 0, 0)
+    pdf.set_xy(12.7, 34.2)
+    pdf.cell(0, 0, data.get("art_der_freischaltung1a"))
+
+    pdf.set_font('DGUVMeta-Bold', '', 10)
+    pdf.set_text_color(35, 31, 32)
+    pdf.set_xy(12.7, 40.7)
+    pdf.cell(0, 0, 'Wo erfolgte die Freischaltung?')
+
+    pdf.set_font('DGUVMeta-Normal', '', 10)
+    pdf.set_text_color(0, 0, 0)
+    pdf.set_xy(12.7, 45.7)
+    pdf.cell(0, 0, data.get("ort_der_freischaltung1a"))
+
+    pdf.set_font('DGUVMeta-Bold', '', 10)
+    pdf.set_text_color(35, 31, 32)
+    pdf.set_xy(12.7, 52.2)
+    pdf.cell(0, 0, 'Nr. oder Bezeichnung:')
+
+    pdf.set_font('DGUVMeta-Normal', '', 10)
+    pdf.set_text_color(0, 0, 0)
+    pdf.set_xy(12.7, 57.2)
+    pdf.cell(0, 0, data.get("nroderbezeichnung1a"))
+
+    if data[
+        "zusaetzlichfreigeschaltet1a"] == 'im Hausanschlusskasten (wegen dezentraler Einspeisung, z. B. PV-Anlage, BHKW)':
+        pdf.set_font('DGUVMeta-Bold', '', 10)
+        pdf.set_text_color(35, 31, 32)
+        pdf.set_xy(12.7, 63.7)
+        pdf.cell(0, 0, 'Zusätzlich freigeschaltet:')
+
+        pdf.set_font('DGUVMeta-Normal', '', 10)
+        pdf.set_text_color(0, 0, 0)
+        pdf.set_xy(12.7, 68.7)
+        pdf.cell(0, 0, data.get("zusaetzlichfreigeschaltet1a"))
+    else:
+        data["zusaetzlichfreigeschaltet1a"] = ''
+
     pdf.output("s139.pdf", "F")
 
 if __name__ == "__main__":
