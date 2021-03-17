@@ -190,19 +190,37 @@ def create_pdf(input):
     pdf.set_xy(12.7, 57.2)
     pdf.cell(0, 0, data.get("nroderbezeichnung1a"))
 
-    if data[
-        "zusaetzlichfreigeschaltet1a"] == 'im Hausanschlusskasten (wegen dezentraler Einspeisung, z. B. PV-Anlage, BHKW)':
-        pdf.set_font('DGUVMeta-Bold', '', 10)
-        pdf.set_text_color(35, 31, 32)
-        pdf.set_xy(12.7, 63.7)
-        pdf.cell(0, 0, 'Zusätzlich freigeschaltet:')
+    # 1b Freigeschaltet Ausschaltstelle 2
 
-        pdf.set_font('DGUVMeta-Normal', '', 10)
-        pdf.set_text_color(0, 0, 0)
-        pdf.set_xy(12.7, 68.7)
-        pdf.cell(0, 0, data.get("zusaetzlichfreigeschaltet1a"))
-    else:
-        data["zusaetzlichfreigeschaltet1a"] = ''
+    pdf.set_font('DGUVMeta-Bold', '', 10)
+    pdf.set_text_color(35, 31, 32)
+    pdf.set_xy(12.7, 89)
+    pdf.cell(0, 0, 'Wie erfolgte die Freischaltung?')
+
+    pdf.set_font('DGUVMeta-Normal', '', 10)
+    pdf.set_text_color(0, 0, 0)
+    pdf.set_xy(12.7, 94)
+    pdf.cell(0, 0, data.get("art_der_freischaltung1b"))
+
+    pdf.set_font('DGUVMeta-Bold', '', 10)
+    pdf.set_text_color(35, 31, 32)
+    pdf.set_xy(12.7, 100.5)
+    pdf.cell(0, 0, 'Wo erfolgte die Freischaltung?')
+
+    pdf.set_font('DGUVMeta-Normal', '', 10)
+    pdf.set_text_color(0, 0, 0)
+    pdf.set_xy(12.7, 105.5)
+    pdf.cell(0, 0, data.get("ort_der_freischaltung1b"))
+
+    pdf.set_font('DGUVMeta-Bold', '', 10)
+    pdf.set_text_color(35, 31, 32)
+    pdf.set_xy(12.7, 112)
+    pdf.cell(0, 0, 'Nr. oder Bezeichnung:')
+
+    pdf.set_font('DGUVMeta-Normal', '', 10)
+    pdf.set_text_color(0, 0, 0)
+    pdf.set_xy(12.7, 117)
+    pdf.cell(0, 0, data.get("nroderbezeichnung1b"))
 
     pdf.output("s139.pdf", "F")
 
