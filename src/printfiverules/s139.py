@@ -82,6 +82,30 @@ def create_pdf(input):
     else:
         data["zusaetzlichfreigeschaltet1a"] = ''
 
+    # 1B
+
+    data["art_der_freischaltung1b"] = input.get('#/properties/edi0eb8d7909c5c439b9df0667d36440b38')
+
+    if data["art_der_freischaltung1b"] == "NH-Sicherungen":
+        data["ausloesestrom1b"] = input.get('#/properties/edif11bce386b3f45e19b95b1a80fd3ad17')
+    elif data["art_der_freischaltung1b"] == "NH-Lastschaltleiste":
+        data["ausloesestrom1b"] = input.get('#/properties/edi1163d69c077444199c8e513499a11ad9')
+    elif data["art_der_freischaltung1b"] == "Leistungsschalter":
+        data["ausloesestrom1b"] = input.get('#/properties/edi92e454031d0b47448f5a54bed57687c5')
+    else:
+        data["ausloesestrom1b"] = "/"
+
+    data["ort_der_freischaltung1b"] = input.get('#/properties/edi2c1262bbdc134c72b2aa084d73af7fba')
+
+    if data["ort_der_freischaltung1b"] == "Trafostation":
+        data["nroderbezeichnung1b"] = input.get('#/properties/ediddcfbcaeae454ca592296dba6ea7933c')
+    elif data["ort_der_freischaltung1b"] == "Umspannwerk UW":
+        data["nroderbezeichnung1b"] = input.get('#/properties/edi0e5df3f137304927b9fc8e6d49de9ddb')
+    elif data["ort_der_freischaltung1b"] == "Kabelverteilerschrank":
+        data["nroderbezeichnung1b"] = input.get('#/properties/edi9e3a9cf861b649cd85df3cfe16e90081')
+    elif data["ort_der_freischaltung1b"] == "Maststation":
+        data["nroderbezeichnung1b"] = input.get('#/properties/edi3de35e8419e74e8ba08256ee8309f962')
+
     # Kopffragen
 
     pdf.set_font('DGUVMeta-Normal', '', 14)
