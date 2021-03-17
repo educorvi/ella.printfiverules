@@ -165,6 +165,7 @@ def create_pdf(input):
     pdf.set_text_color(0,140,142)
     pdf.set_xy(12.7, 83.5)
     pdf.cell(0, 0, 'EVU')
+
     # Kopffragen
 
     pdf.set_font('DGUVMeta-Normal', '', 14)
