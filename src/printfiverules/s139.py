@@ -49,9 +49,40 @@ def create_pdf(input):
     else:
         data["abgrenzung_arbeitsbereich_nein"] = ""
 
-    # Kopffragen
+    # 1A
 
-    #import pdb; pdb.set_trace()
+    data["art_der_freischaltung1a"] = input.get('#/properties/edi8159e25519d24b4dbc510f0dab922d82')
+
+    if data["art_der_freischaltung1a"] == "NH-Sicherungen":
+        data["ausloesestrom1a"] = input.get('#/properties/edi6ccf2bd1724b46e18bba24ce7d36ff66')
+    elif data["art_der_freischaltung1a"] == "NH-Lastschaltleiste":
+        data["ausloesestrom1a"] = input.get('#/properties/ediac7a78d88db24a6aa920e61d3e887d16')
+    elif data["art_der_freischaltung1a"] == "Leistungsschalter":
+        data["ausloesestrom1a"] = input.get('#/properties/edic2673a81e3cf44b1a7500ff6d9b93952')
+    else:
+        data["ausloesestrom1a"] = "/"
+
+    data["ort_der_freischaltung1a"] = input.get('#/properties/edi7ee749a5caa6420fa21d4882f14b2cb8')
+
+    if data["ort_der_freischaltung1a"] == "Trafostation":
+        data["nroderbezeichnung1a"] = input.get('#/properties/edid8d993f743324581b5c47c12b218efbb')
+    elif data["ort_der_freischaltung1a"] == "Umspannwerk UW":
+        data["nroderbezeichnung1a"] = input.get('#/properties/edi2b3d2eec597f488799007fdd7146012e')
+    elif data["ort_der_freischaltung1a"] == "Kabelverteilerschrank":
+        data["nroderbezeichnung1a"] = input.get('#/properties/edi2e295c0a64d742a4a3ef6e961e7d4efc')
+    elif data["ort_der_freischaltung1a"] == "Maststation":
+        data["nroderbezeichnung1a"] = input.get('#/properties/edi1e9e665dbf2a4118ba84a6910cfe9842')
+
+    data["zusaetzlichfreigeschaltet1a"] = input.get('#/properties/edi39026745e38e4279b3113e51c8d76d50')
+
+    if data["zusaetzlichfreigeschaltet1a"] == [
+        'im Hausanschlusskasten (wegen dezentraler Einspeisung, z. B. PV-Anlage, BHKW)']:
+        data[
+            "zusaetzlichfreigeschaltet1a"] = 'im Hausanschlusskasten (wegen dezentraler Einspeisung, z. B. PV-Anlage, BHKW)'
+    else:
+        data["zusaetzlichfreigeschaltet1a"] = ''
+
+    # Kopffragen
 
     pdf.set_font('DGUVMeta-Normal', '', 14)
     pdf.set_xy(13, 107)
