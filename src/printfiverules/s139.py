@@ -367,7 +367,17 @@ def create_pdf(input):
     pdf.set_font('DGUVMeta-Normal', '', 10)
     pdf.set_text_color(0, 0, 0)
     pdf.set_xy(12.7, 84)
-    pdf.cell(0, 0, data.get("pruefungsart3c"))
+    pdf.cell(0, 0, data.get("stelle1"))
+
+    pdf.set_font('DGUVMeta-Bold', '', 10)
+    pdf.set_text_color(35, 31, 32)
+    pdf.set_xy(12.7, 90.5)
+    pdf.cell(0, 0, 'an Ausschaltstelle 2:')
+
+    pdf.set_font('DGUVMeta-Normal', '', 10)
+    pdf.set_text_color(0, 0, 0)
+    pdf.set_xy(12.7, 95.5)
+    pdf.cell(0, 0, data.get("stelle2"))
 
     pdf.output("s139.pdf", "F")
 
