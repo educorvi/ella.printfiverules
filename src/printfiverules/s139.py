@@ -126,6 +126,10 @@ def create_pdf(input):
     data["stelle1"] = input.get('#/properties/edie262f477c18547b287fa143e61ae7dce')
     data["stelle2"] = input.get('#/properties/edib2c977060a8f4cea98a737707dc54d93')
 
+    # 4B
+
+    data["euk_unabhaengig"] = input.get('#/properties/edi21f13e151264431d97d5f0662af3a7c0')
+
     # Kopffragen
 
     pdf.set_font('DGUVMeta-Normal', '', 14)
