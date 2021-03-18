@@ -324,6 +324,18 @@ def create_pdf(input):
     template7page3path = (base_path / "resources/images/newtemplate7_seite3.jpg").resolve()
     pdf.image(str(template7page3path), x=-4, y=-8, w=217, h=313)
 
+    # 3b Spannungsfreiheit allpolig festgestellt an der Ausschaltstelle 2
+
+    pdf.set_font('DGUVMeta-Bold', '', 10)
+    pdf.set_text_color(35, 31, 32)
+    pdf.set_xy(12.7, 22)
+    pdf.cell(0, 0, 'Zweipoliger Spannungsprüfer:')
+
+    pdf.set_font('DGUVMeta-Normal', '', 10)
+    pdf.set_text_color(0, 0, 0)
+    pdf.set_xy(12.7, 27)
+    pdf.cell(0, 0, data.get("spannungspruefer3b"))
+
     pdf.output("s139.pdf", "F")
 
 if __name__ == "__main__":
