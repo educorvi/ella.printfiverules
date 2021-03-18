@@ -318,6 +318,12 @@ def create_pdf(input):
     pdf.set_xy(12.7, 261)
     pdf.cell(0, 0, data.get("spannungspruefer3a"))
 
+    # Adding new page
+
+    pdf.add_page()
+    template7page3path = (base_path / "resources/images/newtemplate7_seite3.jpg").resolve()
+    pdf.image(str(template7page3path), x=-4, y=-8, w=217, h=313)
+
     pdf.output("s139.pdf", "F")
 
 if __name__ == "__main__":
