@@ -325,8 +325,8 @@ def create_pdf(input):
     # Adding new page
 
     pdf.add_page()
-    template7page3path = (base_path / "resources/images/newtemplate7_seite3.jpg").resolve()
-    pdf.image(str(template7page3path), x=-4, y=-8, w=217, h=313)
+    template8page3path = (base_path / "resources/images/newtemplate8_seite3.jpg").resolve()
+    pdf.image(str(template8page3path), x=-4, y=-8, w=217, h=313)
 
     # 3b Spannungsfreiheit allpolig festgestellt an der Ausschaltstelle 2
 
