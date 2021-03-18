@@ -103,6 +103,12 @@ def create_pdf(input):
     data["schalten_verboten2a"] = input.get('#/properties/edifde90266c50b4decbbf39f90b1e78dc3')
     data["unbefugter_zugriff2a"] = input.get('#/properties/edib6a4d5aa3a2a49fda0289a286b0230d9')
 
+    # 2B
+
+    data["schloss2b"] = input.get('#/properties/edib2da15fb1b5b4be5946baaa5a817308b')
+    data["schalten_verboten2b"] = input.get('#/properties/edieb2217b71929472192076587431dabea')
+    data["unbefugter_zugriff2b"] = input.get('#/properties/edifde005a3ca474268861754c807311c2f')
+
     # Kopffragen
 
     pdf.set_font('DGUVMeta-Normal', '', 14)
