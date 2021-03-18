@@ -306,6 +306,18 @@ def create_pdf(input):
     pdf.set_xy(12.7, 224)
     pdf.cell(0, 0, data.get("unbefugter_zugriff2b"))
 
+    # 3a Spannungsfreiheit allpolig festgestellt an der Ausschaltstelle1
+
+    pdf.set_font('DGUVMeta-Bold', '', 10)
+    pdf.set_text_color(35, 31, 32)
+    pdf.set_xy(12.7, 256)
+    pdf.cell(0, 0, 'Zweipoliger Spannungsprüfer:')
+
+    pdf.set_font('DGUVMeta-Normal', '', 10)
+    pdf.set_text_color(0, 0, 0)
+    pdf.set_xy(12.7, 261)
+    pdf.cell(0, 0, data.get("spannungspruefer3a"))
+
     pdf.output("s139.pdf", "F")
 
 if __name__ == "__main__":
