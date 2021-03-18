@@ -352,6 +352,18 @@ def create_pdf(input):
     pdf.set_xy(12.7, 55)
     pdf.cell(0, 0, data.get("pruefungsart3c"))
 
+    # 4a Geerdet und kurzgeschlossen an den Ausschaltstellen
+
+    pdf.set_font('DGUVMeta-Bold', '', 10)
+    pdf.set_text_color(35, 31, 32)
+    pdf.set_xy(12.7, 79)
+    pdf.cell(0, 0, 'an Ausschaltstelle 1:')
+
+    pdf.set_font('DGUVMeta-Normal', '', 10)
+    pdf.set_text_color(0, 0, 0)
+    pdf.set_xy(12.7, 84)
+    pdf.cell(0, 0, data.get("pruefungsart3c"))
+
     pdf.output("s139.pdf", "F")
 
 if __name__ == "__main__":
