@@ -97,6 +97,12 @@ def create_pdf(input):
     elif data["ort_der_freischaltung1b"] == "Maststation":
         data["nroderbezeichnung1b"] = input.get('#/properties/edi3de35e8419e74e8ba08256ee8309f962')
 
+    # 2A
+
+    data["schloss2a"] = input.get('#/properties/edid568fac032734a64ba0b76bec20256f9')
+    data["schalten_verboten2a"] = input.get('#/properties/edifde90266c50b4decbbf39f90b1e78dc3')
+    data["unbefugter_zugriff2a"] = input.get('#/properties/edib6a4d5aa3a2a49fda0289a286b0230d9')
+
     # Kopffragen
 
     pdf.set_font('DGUVMeta-Normal', '', 14)
