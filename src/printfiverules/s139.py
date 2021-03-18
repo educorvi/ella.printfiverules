@@ -109,6 +109,10 @@ def create_pdf(input):
     data["schalten_verboten2b"] = input.get('#/properties/edieb2217b71929472192076587431dabea')
     data["unbefugter_zugriff2b"] = input.get('#/properties/edifde005a3ca474268861754c807311c2f')
 
+    # 3A
+
+    data["spannungspruefer3a"] = input.get('#/properties/edif1719b36a21943c9a074cf29c83f5b0f')
+
     # Kopffragen
 
     pdf.set_font('DGUVMeta-Normal', '', 14)
