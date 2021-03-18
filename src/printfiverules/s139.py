@@ -234,6 +234,38 @@ def create_pdf(input):
     pdf.set_xy(12.7, 117)
     pdf.cell(0, 0, data.get("nroderbezeichnung1b"))
 
+    # 2a Gegen Wiedereinschalten gesichert Ausschaltstelle 1
+
+    pdf.set_font('DGUVMeta-Bold', '', 10)
+    pdf.set_text_color(35, 31, 32)
+    pdf.set_xy(12.7, 147.5)
+    pdf.cell(0, 0, 'Wurde ein Vorhängeschloss am Schalter eingehängt und abgeschlossen?')
+
+    pdf.set_font('DGUVMeta-Normal', '', 10)
+    pdf.set_text_color(0, 0, 0)
+    pdf.set_xy(12.7, 152.5)
+    pdf.cell(0, 0, data.get("schloss2a"))
+
+    pdf.set_font('DGUVMeta-Bold', '', 10)
+    pdf.set_text_color(35, 31, 32)
+    pdf.set_xy(12.7, 159)
+    pdf.cell(0, 0, 'Wurde ein Schild "Schalten verboten" zusätzlich angebracht?')
+
+    pdf.set_font('DGUVMeta-Normal', '', 10)
+    pdf.set_text_color(0, 0, 0)
+    pdf.set_xy(12.7, 164)
+    pdf.cell(0, 0, data.get("schalten_verboten2a"))
+
+    pdf.set_font('DGUVMeta-Bold', '', 10)
+    pdf.set_text_color(35, 31, 32)
+    pdf.set_xy(12.7, 170.5)
+    pdf.cell(0, 0, 'Wurden ausgebaute NH-Sicherungen unbefugtem Zugriff entzogen, z. B. mitgenommen?')
+
+    pdf.set_font('DGUVMeta-Normal', '', 10)
+    pdf.set_text_color(0, 0, 0)
+    pdf.set_xy(12.7, 175.5)
+    pdf.cell(0, 0, data.get("unbefugter_zugriff2a"))
+
     pdf.output("s139.pdf", "F")
 
 if __name__ == "__main__":
