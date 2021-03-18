@@ -113,6 +113,10 @@ def create_pdf(input):
 
     data["spannungspruefer3a"] = input.get('#/properties/edif1719b36a21943c9a074cf29c83f5b0f')
 
+    # 3B
+
+    data["spannungspruefer3b"] = input.get('#/properties/edi213b744312ab4abfb51b812aca8c901e')
+
     # Kopffragen
 
     pdf.set_font('DGUVMeta-Normal', '', 14)
