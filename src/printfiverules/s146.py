@@ -1,15 +1,23 @@
 from fpdf import FPDF
+from pathlib import Path
 
 def create_pdf(input):
 
     pdf = FPDF(orientation='P', unit='mm', format='A4')
     pdf.add_page()
 
-    pdf.add_font('DGUVMeta-Normal', '', 'DGUVMeta-Normal.ttf', uni=True)
-    pdf.add_font('DGUVMeta-Bold', '', 'DGUVMeta-Bold.ttf', uni=True)
-    pdf.add_font('DGUVMeta-NormalItalic', '', 'DGUVMeta-NormalItalic.ttf', uni=True)
+    base_path = Path(__file__).parent
 
-    pdf.image("newtemplate2_seite1.jpg", x=-4, y=-8, w=217, h=313)
+    dguvnormalpath = (base_path / "resources/fonts/DGUVMeta-Normal.ttf").resolve()
+    dguvboldpath = (base_path / "resources/fonts/DGUVMeta-Bold.ttf").resolve()
+    dguvnormalitalicpath = (base_path / "resources/fonts/DGUVMeta-NormalItalic.ttf").resolve()
+
+    pdf.add_font('DGUVMeta-Normal', '', dguvnormalpath, uni=True)
+    pdf.add_font('DGUVMeta-Bold', '', dguvboldpath, uni=True)
+    pdf.add_font('DGUVMeta-NormalItalic', '', dguvnormalitalicpath, uni=True)
+
+    template2page1path = (base_path / "resources/images/newtemplate2_seite1.jpg").resolve()
+    pdf.image(str(template2page1path), x=-4, y=-8, w=217, h=313)
 
     data = {}
     input = input.get("data")
@@ -138,7 +146,8 @@ def create_pdf(input):
     #Adding new page
 
     pdf.add_page()
-    pdf.image("newtemplate1_seite2.jpg", x=-4, y=-8, w=217, h=313)
+    template1page2path = (base_path / "resources/images/newtemplate1_seite2.jpg").resolve()
+    pdf.image(str(template1page2path), x=-4, y=-8, w=217, h=313)
 
     # 1 Freigeschaltet
 
