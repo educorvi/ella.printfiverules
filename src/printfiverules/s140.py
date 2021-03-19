@@ -1,5 +1,3 @@
-#4 Tippfehler?
-
 from fpdf import FPDF
 
 def create_pdf(input):
