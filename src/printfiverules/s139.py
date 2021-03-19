@@ -130,6 +130,18 @@ def create_pdf(input):
 
     data["euk_unabhaengig"] = input.get('#/properties/edi21f13e151264431d97d5f0662af3a7c0')
 
+    # Title
+
+    pdf.set_font('DGUVMeta-Bold', '', 20)
+    pdf.set_text_color(0, 73, 148)
+    pdf.set_xy(12.7, 63.25)
+    pdf.cell(0, 0, 'Arbeiten an Freileitungen bis 1000 V')
+
+    pdf.set_font('DGUVMeta-Bold', '', 14)
+    pdf.set_text_color(0, 140, 142)
+    pdf.set_xy(12.7, 83.5)
+    pdf.cell(0, 0, 'EVU')
+
     # Kopffragen
 
     pdf.set_font('DGUVMeta-Normal', '', 14)
