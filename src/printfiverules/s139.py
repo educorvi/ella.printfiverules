@@ -230,15 +230,10 @@ def create_pdf(input):
     pdf.set_xy(12.7, 50.2)
     pdf.cell(0, 0, data.get("ort_der_freischaltung1a"))
 
-    pdf.set_font('DGUVMeta-Bold', '', 10)
-    pdf.set_text_color(35, 31, 32)
-    pdf.set_xy(12.7, 56.2)
-    pdf.cell(0, 0, 'Nr. oder Bezeichnung:')
-
     pdf.set_font('DGUVMeta-Normal', '', 10)
-    pdf.set_text_color(0, 0, 0)
-    pdf.set_xy(12.7, 61.2)
-    pdf.cell(0, 0, data.get("nroderbezeichnung1a"))
+    pdf.set_text_color(35, 31, 32)
+    pdf.set_xy(12.7, 55.2)
+    pdf.cell(0, 0, 'Nr. oder Bezeichnung: %s ' % data.get("nroderbezeichnung1a"))
 
     # 1b Freigeschaltet Ausschaltstelle 2
 
