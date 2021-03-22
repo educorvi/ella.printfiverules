@@ -235,43 +235,43 @@ def create_pdf(input):
 
     pdf.set_font('DGUVMeta-Bold', '', 10)
     pdf.set_text_color(35,31,32)
-    pdf.set_xy(12.7, 29.2)
+    pdf.set_xy(12.7, 28.2)
     pdf.cell(0, 0, 'Wie erfolgte die Freischaltung?')
 
     pdf.set_font('DGUVMeta-Normal', '', 10)
     pdf.set_text_color(0,0,0)
-    pdf.set_xy(12.7, 34.2)
+    pdf.set_xy(12.7, 33.2)
     pdf.cell(0, 0, data.get("art_der_freischaltung1a"))
+
+    pdf.set_font('DGUVMeta-Normal', '', 10)
+    pdf.set_text_color(0, 0, 0)
+    pdf.set_xy(12.7, 38.2)
+    pdf.cell(0, 0, 'Auslösestrom: %s A' % data.get("ausloesestrom1a"))
 
     pdf.set_font('DGUVMeta-Bold', '', 10)
     pdf.set_text_color(35,31,32)
-    pdf.set_xy(12.7, 40.7)
+    pdf.set_xy(12.7, 44.7)
     pdf.cell(0, 0, 'Wo erfolgte die Freischaltung?')
 
     pdf.set_font('DGUVMeta-Normal', '', 10)
     pdf.set_text_color(0,0,0)
-    pdf.set_xy(12.7, 45.7)
+    pdf.set_xy(12.7, 49.7)
     pdf.cell(0, 0, data.get("ort_der_freischaltung1a"))
 
-    pdf.set_font('DGUVMeta-Bold', '', 10)
-    pdf.set_text_color(35,31,32)
-    pdf.set_xy(12.7, 52.2)
-    pdf.cell(0, 0, 'Nr. oder Bezeichnung:')
-
     pdf.set_font('DGUVMeta-Normal', '', 10)
-    pdf.set_text_color(0,0,0)
-    pdf.set_xy(12.7, 57.2)
-    pdf.cell(0, 0, data.get("nroderbezeichnung1a"))
+    pdf.set_text_color(35,31,32)
+    pdf.set_xy(12.7, 54.7)
+    pdf.cell(0, 0, 'Nr. oder Bezeichnung: %s ' % data.get("nroderbezeichnung1a"))
 
     if data["zusaetzlichfreigeschaltet1a"] == 'im Hausanschlusskasten (wegen dezentraler Einspeisung, z. B. PV-Anlage, BHKW)':
         pdf.set_font('DGUVMeta-Bold', '', 10)
         pdf.set_text_color(35, 31, 32)
-        pdf.set_xy(12.7, 63.7)
+        pdf.set_xy(12.7, 61.2)
         pdf.cell(0, 0, 'Zusätzlich freigeschaltet:')
 
         pdf.set_font('DGUVMeta-Normal', '', 10)
         pdf.set_text_color(0, 0, 0)
-        pdf.set_xy(12.7, 68.7)
+        pdf.set_xy(12.7, 66.2)
         pdf.cell(0, 0, data.get("zusaetzlichfreigeschaltet1a"))
     else:
         data["zusaetzlichfreigeschaltet1a"] = ''
