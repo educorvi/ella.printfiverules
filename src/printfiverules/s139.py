@@ -53,11 +53,11 @@ def create_pdf(input):
 
     data["art_der_freischaltung1a"] = input.get('#/properties/edi8159e25519d24b4dbc510f0dab922d82')
 
-    if data["art_der_freischaltung1a"] == "NH-Sicherungen":
+    if data["art_der_freischaltung1a"] == "NH-Sicherungen ":
         data["ausloesestrom1a"] = input.get('#/properties/edi6ccf2bd1724b46e18bba24ce7d36ff66')
-    elif data["art_der_freischaltung1a"] == "NH-Lastschaltleiste":
+    elif data["art_der_freischaltung1a"] == "NH-Lastschaltleiste ":
         data["ausloesestrom1a"] = input.get('#/properties/ediac7a78d88db24a6aa920e61d3e887d16')
-    elif data["art_der_freischaltung1a"] == "Leistungsschalter":
+    elif data["art_der_freischaltung1a"] == "Leistungsschalter ":
         data["ausloesestrom1a"] = input.get('#/properties/edic2673a81e3cf44b1a7500ff6d9b93952')
     else:
         data["ausloesestrom1a"] = "/"
@@ -215,24 +215,29 @@ def create_pdf(input):
     pdf.set_xy(12.7, 34.2)
     pdf.cell(0, 0, data.get("art_der_freischaltung1a"))
 
+    pdf.set_font('DGUVMeta-Normal', '', 10)
+    pdf.set_text_color(0, 0, 0)
+    pdf.set_xy(12.7, 39.2)
+    pdf.cell(0, 0, 'Auslösestrom: %s A' % data.get("ausloesestrom1a"))
+
     pdf.set_font('DGUVMeta-Bold', '', 10)
     pdf.set_text_color(35, 31, 32)
-    pdf.set_xy(12.7, 40.7)
+    pdf.set_xy(12.7, 45.2)
     pdf.cell(0, 0, 'Wo erfolgte die Freischaltung?')
 
     pdf.set_font('DGUVMeta-Normal', '', 10)
     pdf.set_text_color(0, 0, 0)
-    pdf.set_xy(12.7, 45.7)
+    pdf.set_xy(12.7, 50.2)
     pdf.cell(0, 0, data.get("ort_der_freischaltung1a"))
 
     pdf.set_font('DGUVMeta-Bold', '', 10)
     pdf.set_text_color(35, 31, 32)
-    pdf.set_xy(12.7, 52.2)
+    pdf.set_xy(12.7, 56.2)
     pdf.cell(0, 0, 'Nr. oder Bezeichnung:')
 
     pdf.set_font('DGUVMeta-Normal', '', 10)
     pdf.set_text_color(0, 0, 0)
-    pdf.set_xy(12.7, 57.2)
+    pdf.set_xy(12.7, 61.2)
     pdf.cell(0, 0, data.get("nroderbezeichnung1a"))
 
     # 1b Freigeschaltet Ausschaltstelle 2
