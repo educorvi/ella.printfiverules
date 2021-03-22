@@ -252,25 +252,25 @@ def create_pdf(input):
     pdf.set_xy(12.7, 94)
     pdf.cell(0, 0, data.get("art_der_freischaltung1b"))
 
+    pdf.set_font('DGUVMeta-Normal', '', 10)
+    pdf.set_text_color(0, 0, 0)
+    pdf.set_xy(12.7, 99)
+    pdf.cell(0, 0, 'Auslösestrom: %s A' % data.get("ausloesestrom1b"))
+
     pdf.set_font('DGUVMeta-Bold', '', 10)
     pdf.set_text_color(35, 31, 32)
-    pdf.set_xy(12.7, 100.5)
+    pdf.set_xy(12.7, 105.5)
     pdf.cell(0, 0, 'Wo erfolgte die Freischaltung?')
 
     pdf.set_font('DGUVMeta-Normal', '', 10)
     pdf.set_text_color(0, 0, 0)
-    pdf.set_xy(12.7, 105.5)
+    pdf.set_xy(12.7, 110.5)
     pdf.cell(0, 0, data.get("ort_der_freischaltung1b"))
 
-    pdf.set_font('DGUVMeta-Bold', '', 10)
-    pdf.set_text_color(35, 31, 32)
-    pdf.set_xy(12.7, 112)
-    pdf.cell(0, 0, 'Nr. oder Bezeichnung:')
-
     pdf.set_font('DGUVMeta-Normal', '', 10)
-    pdf.set_text_color(0, 0, 0)
-    pdf.set_xy(12.7, 117)
-    pdf.cell(0, 0, data.get("nroderbezeichnung1b"))
+    pdf.set_text_color(35, 31, 32)
+    pdf.set_xy(12.7, 115.5)
+    pdf.cell(0, 0, 'Nr. oder Bezeichnung: %s ' % data.get("nroderbezeichnung1b"))
 
     # 2a Gegen Wiedereinschalten gesichert Ausschaltstelle 1
 
