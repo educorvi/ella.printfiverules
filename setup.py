@@ -1,7 +1,9 @@
-import setuptools
+from setuptools import setup, find_packages
 
-setuptools.setup(
-        install_requires=[
-         'fpdf',
-        ]
-        )
+setup(
+    packages = find_packages(),
+    package_data = {'': ['*.jpg', '*.ttf']}
+    install_requires=[
+    'fpdf',
+    ]
+)
