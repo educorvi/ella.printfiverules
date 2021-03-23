@@ -1,3 +1,7 @@
 import setuptools
 
-setuptools.setup()
+setuptools.setup(
+        install_requires=[
+         'fpdf',
+        ]
+        )
