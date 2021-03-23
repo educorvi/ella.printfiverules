@@ -309,7 +309,7 @@ def create_pdf(input):
     pdf.set_xy(12.7, 253.1)
     pdf.cell(0, 0, data.get("art_der_abdeckung"))
 
-    pdf.output("s143.pdf", "F")
+    return pdf.output("s143.pdf", "S")
 
 if __name__ == "__main__":
     from importdata import elektrohandwerk_schaltanlagen as input
