@@ -130,6 +130,21 @@ def create_pdf(input):
 
     data["euk_unabhaengig"] = input.get('#/properties/edi21f13e151264431d97d5f0662af3a7c0')
 
+    # 5
+
+    data["ziel_der_abdeckung"] = input.get('#/properties/edi8c4b25dad360402980b37e62a93cebb7')
+
+    if data["ziel_der_abdeckung"] == "teilweiser Berührungsschutz":
+        data["art_der_abdeckung"] = ', '.join(input.get('#/properties/edid9cfaef19040459a9d1cd883c829d56b'))
+    elif data["ziel_der_abdeckung"] == "vollständiger Berührungsschutz":
+        data["art_der_abdeckung"] = ', '.join(input.get('#/properties/edi45ca6eec67954c64b5064afb8c36794a'))
+    elif data["ziel_der_abdeckung"] == "Abdeckung nicht notwendig":
+        data["art_der_abdeckung"] = input.get('#/properties/edi26de8d7e1ef5430aa084657feca15ff0')
+        if data.get("art_der_abdeckung") == "die Entfernung beträgt ca.:":
+            data["entfernung"] = input.get('#/properties/edi546bda46bed444418f5cb4c4bf5294cd')
+    else:
+        data["art_der_abdeckung"] = ""
+
     # Title
 
     pdf.set_font('DGUVMeta-Bold', '', 20)
