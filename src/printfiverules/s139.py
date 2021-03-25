@@ -422,6 +422,31 @@ def create_pdf(input):
     pdf.set_xy(12.7, 117)
     pdf.cell(0, 0, data.get("euk_unabhaengig"))
 
+    # 5 Mit der Abdeckung soll erreicht werden
+
+    pdf.set_font('DGUVMeta-Bold', '', 10)
+    pdf.set_text_color(35, 31, 32)
+    pdf.set_xy(12.7, 148)
+    pdf.cell(0, 0, 'Mit der Abdeckung soll erreicht werden:')
+
+    pdf.set_font('DGUVMeta-Normal', '', 10)
+    pdf.set_text_color(0, 0, 0)
+    pdf.set_xy(12.7, 153)
+    pdf.cell(0, 0, data.get("ziel_der_abdeckung"))
+
+    pdf.set_font('DGUVMeta-Bold', '', 10)
+    pdf.set_text_color(35, 31, 32)
+    pdf.set_xy(12.7, 158)
+    if data["ziel_der_abdeckung"] != "Abdeckung nicht notwendig":
+        pdf.cell(0, 0, 'Art der Abdeckung:')
+    else:
+        pdf.cell(0, 0, 'keine Abdeckung angebracht, weil:')
+
+    pdf.set_font('DGUVMeta-Normal', '', 10)
+    pdf.set_text_color(0, 0, 0)
+    pdf.set_xy(12.7, 163)
+    pdf.cell(0, 0, data.get("art_der_abdeckung"))
+
     pdf.output("s139.pdf", "F")
 
 if __name__ == "__main__":
