@@ -19,6 +19,7 @@ def create_pdf(input):
     pdf.image(str(template3page1path), x=-4, y=-8, w=217, h=313)
 
     data = {}
+    docid = input.get("docid")
     input = input.get("data")
 
     # Kopffragen
@@ -447,7 +448,7 @@ def create_pdf(input):
     pdf.set_xy(12.7, 163)
     pdf.cell(0, 0, data.get("art_der_abdeckung"))
 
-    pdf.output("s139.pdf", "F")
+    return pdf.output('%s.pdf' % docid)
 
 if __name__ == "__main__":
     from importdata import freileitungen as input
