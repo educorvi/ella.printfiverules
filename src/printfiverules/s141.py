@@ -328,7 +328,7 @@ def create_pdf(input):
             pdf.set_xy(12.7, 256.5)
             pdf.cell(0, 0, str(data.get("entfernung") + " Meter"))
 
-    return pdf.output('%s.pdf' % docid)
+    return pdf.output('/tmp/%s.pdf' % docid, 'F')
 
 if __name__ == "__main__":
     from importdata import niederspannungsanlage as input

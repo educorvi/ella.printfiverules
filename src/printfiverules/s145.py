@@ -241,7 +241,7 @@ def create_pdf(input):
     pdf.set_xy(12.7, 241.6)
     pdf.cell(0, 0, data.get("ziel_der_abdeckung"))
 
-    return pdf.output('%s.pdf' % docid)
+    return pdf.output('/tmp/%s.pdf' % docid, 'F')
 
 if __name__ == "__main__":
     from importdata import endstromkreise as input

@@ -279,7 +279,7 @@ def create_pdf(input):
     pdf.set_xy(12.7, 253.1)
     pdf.cell(0, 0, data.get("art_der_abdeckung"))
 
-    return pdf.output('%s.pdf' % docid)
+    return pdf.output('/tmp/%s.pdf' % docid, 'F')
 
 if __name__ == "__main__":
     from importdata import elektrische_betriebsmittel as input
