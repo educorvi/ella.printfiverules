@@ -26,20 +26,27 @@ def create_pdf(input):
     #Kopffragen
 
     data["arbeitsstelle"] = input.get('#/properties/arbeitsstelle-arbeitsort')
-    data["datum_uhrzeit"] = input.get('#/properties/datum-und-uhrzeit')
+    jsontime = input.get('#/properties/datum-und-uhrzeit')
+    try:
+        if 'null' in jsontime:
+            datetime = '%s.%s.%s' % (jsontime[8:10], jsontime[5:7], jsontime[:4])
+        else:
+            datetime = '%s.%s.%s %s' % (jsontime[8:10], jsontime[5:7], jsontime[:4], jsontime[11:])
+    except:
+        datetime = jsontime
+    data["datum_uhrzeit"] = datetime
     data["person_anlageverantwortlichkeit"] = input.get('#/properties/person-in-der-rolle-des-anlagenverantwortlichen')
     data["person_arbeitsverantwortlichkeit"] = input.get('#/properties/person-in-der-rolle-des-arbeitsverantwortlichen')
     data["person_arbeitsausfuehrung"] = input.get('#/properties/arbeitsausfuhrende-person')
 
-    if 'gegen elektrischen Schlag' in input.get('#/properties/zusatzliche-personliche-schutzausrustung'):
-        data["zusaetzliche_schutzausrüstung_elektrischerschlag"] = "x"
-    else:
-        data["zusaetzliche_schutzausrüstung_elektrischerschlag"] = ""
+    data["zusaetzliche_schutzausrüstung_elektrischerschlag"] = ""
+    data["zusaetzliche_schutzausrüstung_stoerlichtbogen"] = ""
+    if input.get('#/properties/zusatzliche-personliche-schutzausrustung'):
+        if 'gegen elektrischen Schlag' in input.get('#/properties/zusatzliche-personliche-schutzausrustung'):
+            data["zusaetzliche_schutzausrüstung_elektrischerschlag"] = "x"
 
-    if 'gegen Störlichtbogen' in input.get('#/properties/zusatzliche-personliche-schutzausrustung'):
-        data["zusaetzliche_schutzausrüstung_stoerlichtbogen"] = "x"
-    else:
-        data["zusaetzliche_schutzausrüstung_stoerlichtbogen"] = ""
+        if 'gegen Störlichtbogen' in input.get('#/properties/zusatzliche-personliche-schutzausrustung'):
+            data["zusaetzliche_schutzausrüstung_stoerlichtbogen"] = "x"
 
     if input.get('#/properties/wurde-der-arbeitsbereich-z-b-mit-ketten-oder') == "ja":
         data["abgrenzung_arbeitsbereich_ja"] = "x"
@@ -62,7 +69,7 @@ def create_pdf(input):
     elif data["art_der_freischaltung"] == "Leistungsschalter":
         data["ausloesestrom"] = input.get('#/properties/edi2b6d1b411a05466e8e3ce4def7b3879c')
     else:
-        data["ausloesestrom"] = "/"
+        data["ausloesestrom"] = ""
 
     data["ort_der_freischaltung"] = input.get('#/properties/edi7bd23a69de5141aaa4379b4ba2b979ba')
 
@@ -73,7 +80,7 @@ def create_pdf(input):
     elif data["ort_der_freischaltung"] == "Kabelverteilerschrank":
         data["ort_nroderbezeichnung"] = input.get('#/properties/edidca06063234648e1b3b54c803a5b99ea')
     else:
-        data["ort_nroderbezeichnung"] = "/"
+        data["ort_nroderbezeichnung"] = ""
 
     # 2
 
@@ -102,7 +109,9 @@ def create_pdf(input):
     elif data["ziel_der_abdeckung"] == "vollständiger Berührungsschutz":
         data["art_der_abdeckung"] = ', '.join(input.get('#/properties/edibe53684aba79423cb430632c3423e180'))
     elif data["ziel_der_abdeckung"] == "Abdeckung nicht notwendig":
-        data["art_der_abdeckung"] = input.get('#/properties/edi30fb04c107ff4509bdddd00f9ab97add')
+        entfernung_text = input.get('#/properties/edi30fb04c107ff4509bdddd00f9ab97add')
+        entfernung_meter = input.get('#/properties/edi5a400e3cf88f490eac52f010595976ef')
+        data["art_der_abdeckung"] = "%s %s m" % (entfernung_text, entfernung_meter)
     else:
         data["art_der_abdeckung"] = ""
 
@@ -303,7 +312,7 @@ def create_pdf(input):
     if data["ziel_der_abdeckung"] != "Abdeckung nicht notwendig":
         pdf.cell(0, 0, 'Art der Abdeckung:')
     else:
-        pdf.cell(0, 0, 'keine Abdeckung angebracht, weil:')
+        pdf.cell(0, 0, 'keine Abdeckung angebracht, weil: ')
 
     pdf.set_font('DGUVMeta-Normal', '', 10)
     pdf.set_text_color(0,0,0)
