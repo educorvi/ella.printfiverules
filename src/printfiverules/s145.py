@@ -20,25 +20,34 @@ def create_pdf(input):
     pdf.image(str(template2page1path), x=-4, y=-8, w=217, h=313)
 
     data = {}
+    docid = input.get("docid")
     input = input.get("data")
 
     # Kopffragen
 
     data["arbeitsstelle"] = input.get('#/properties/arbeitsstelle-arbeitsort')
-    data["datum_uhrzeit"] = input.get('#/properties/datum-und-uhrzeit')
+    jsontime = input.get('#/properties/datum-und-uhrzeit')
+    try:
+        if 'null' in jsontime:
+            datetime = '%s.%s.%s' % (jsontime[8:10], jsontime[5:7], jsontime[:4])
+        else:
+            datetime = '%s.%s.%s %s' % (jsontime[8:10], jsontime[5:7], jsontime[:4], jsontime[11:])
+    except:
+        datetime = jsontime
+    data["datum_uhrzeit"] = datetime
+
     data["person_anlageverantwortlichkeit"] = input.get('#/properties/person-in-der-rolle-des-anlagenverantwortlichen')
     data["person_arbeitsverantwortlichkeit"] = input.get('#/properties/person-in-der-rolle-des-arbeitsverantwortlichen')
     data["person_arbeitsausfuehrung"] = input.get('#/properties/arbeitsausfuhrende-person')
 
-    if 'gegen elektrischen Schlag' in input.get('#/properties/zusatzliche-personliche-schutzausrustung-bei-der-1'):
-        data["zusaetzliche_schutzausrüstung_elektrischerschlag"] = "x"
-    else:
-        data["zusaetzliche_schutzausrüstung_elektrischerschlag"] = ""
+    data["zusaetzliche_schutzausrüstung_elektrischerschlag"] = ""
+    data["zusaetzliche_schutzausrüstung_stoerlichtbogen"] = ""
+    if input.get('#/properties/zusatzliche-personliche-schutzausrustung'):
+        if 'gegen elektrischen Schlag' in input.get('#/properties/zusatzliche-personliche-schutzausrustung'):
+            data["zusaetzliche_schutzausrüstung_elektrischerschlag"] = "x"
 
-    if 'gegen Störlichtbogen' in input.get('#/properties/zusatzliche-personliche-schutzausrustung-bei-der-1'):
-        data["zusaetzliche_schutzausrüstung_stoerlichtbogen"] = "x"
-    else:
-        data["zusaetzliche_schutzausrüstung_stoerlichtbogen"] = ""
+        if 'gegen Störlichtbogen' in input.get('#/properties/zusatzliche-personliche-schutzausrustung'):
+            data["zusaetzliche_schutzausrüstung_stoerlichtbogen"] = "x"
 
     # 1
 
@@ -51,7 +60,7 @@ def create_pdf(input):
     elif data["art_der_freischaltung"] == "Schraubsicherungen":
         data["ausloesestrom"] = input.get('#/properties/edidd592cc4a5674acfa8669da7e7056728')
     else:
-        data["ausloesestrom"] = "/"
+        data["ausloesestrom"] = ""
 
     data["ort_der_freischaltung"] = input.get('#/properties/edi86c60abee95a45c8886de483c2b84e91')
 
@@ -73,6 +82,17 @@ def create_pdf(input):
     # 5
 
     data["ziel_der_abdeckung"] = input.get('#/properties/edi5cac8aded5f245d4964d289ba11c3d9d')
+
+    if data["ziel_der_abdeckung"] == "ausreichender Berührungsschutz":
+        data["art_der_abdeckung"] = ', '.join(input.get('#/properties/edi75d31cd8d2ac41e79bf6eb8ec77d6cca'))
+    elif data["ziel_der_abdeckung"] == "vollständiger Berührungsschutz":
+        data["art_der_abdeckung"] = ', '.join(input.get('#/properties/edidff61f7941de460899c8868f6aa80c49'))
+    elif data["ziel_der_abdeckung"] == "Abdeckung nicht notwendig":
+        entfernung_text = input.get('#/properties/edif0312b2bddd14667a88b0fd6f77f6efe')
+        entfernung_meter = input.get('#/properties/edi9a40f15cc11b4fc7aafa2ce23b68e4d8')
+        data["art_der_abdeckung"] = "%s %s m" % (entfernung_text, entfernung_meter)
+    else:
+        data["art_der_abdeckung"] = ""
 
     # Title
 
@@ -240,6 +260,19 @@ def create_pdf(input):
     pdf.set_text_color(0,0,0)
     pdf.set_xy(12.7, 241.6)
     pdf.cell(0, 0, data.get("ziel_der_abdeckung"))
+
+    pdf.set_font('DGUVMeta-Bold', '', 10)
+    pdf.set_text_color(35,31,32)
+    pdf.set_xy(12.7, 248.1)
+    if data["ziel_der_abdeckung"] != "Abdeckung nicht notwendig":
+        pdf.cell(0, 0, 'Art der Abdeckung:')
+    else:
+        pdf.cell(0, 0, 'keine Abdeckung angebracht, weil: ')
+
+    pdf.set_font('DGUVMeta-Normal', '', 10)
+    pdf.set_text_color(0,0,0)
+    pdf.set_xy(12.7, 253.1)
+    pdf.cell(0, 0, data.get("art_der_abdeckung"))
 
     return pdf.output('/tmp/%s.pdf' % docid, 'F')
 
