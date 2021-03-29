@@ -26,21 +26,27 @@ def create_pdf(input):
     # Kopffragen
 
     data["arbeitsstelle"] = input.get('#/properties/arbeitsstelle-arbeitsort')
-    data["datum_uhrzeit"] = input.get('#/properties/datum-und-uhrzeit')
+    jsontime = input.get('#/properties/datum-und-uhrzeit')
+    try:
+        if 'null' in jsontime:
+            datetime = '%s.%s.%s' % (jsontime[8:10], jsontime[5:7], jsontime[:4])
+        else:
+            datetime = '%s.%s.%s %s' % (jsontime[8:10], jsontime[5:7], jsontime[:4], jsontime[11:])
+    except:
+        datetime = jsontime
+    data["datum_uhrzeit"] = datetime
     data["person_anlageverantwortlichkeit"] = input.get('#/properties/person-in-der-rolle-des-anlagenverantwortlichen')
     data["person_arbeitsverantwortlichkeit"] = input.get('#/properties/person-in-der-rolle-des-arbeitsverantwortlichen')
     data["person_arbeitsausfuehrung"] = input.get('#/properties/arbeitsausfuhrende-person')
 
-    if 'gegen elektrischen Schlag' in input.get('#/properties/zusatzliche-personliche-schutzausrustung-bei-der-1'):
-        data["zusaetzliche_schutzausrüstung_elektrischerschlag"] = "x"
-    else:
-        data["zusaetzliche_schutzausrüstung_elektrischerschlag"] = ""
+    data["zusaetzliche_schutzausrüstung_elektrischerschlag"] = ""
+    data["zusaetzliche_schutzausrüstung_stoerlichtbogen"] = ""
+    if input.get('#/properties/zusatzliche-personliche-schutzausrustung'):
+        if 'gegen elektrischen Schlag' in input.get('#/properties/zusatzliche-personliche-schutzausrustung'):
+            data["zusaetzliche_schutzausrüstung_elektrischerschlag"] = "x"
 
-    if 'gegen Störlichtbogen' in input.get('#/properties/zusatzliche-personliche-schutzausrustung-bei-der-1'):
-        data["zusaetzliche_schutzausrüstung_stoerlichtbogen"] = "x"
-    else:
-        data["zusaetzliche_schutzausrüstung_stoerlichtbogen"] = ""
-
+        if 'gegen Störlichtbogen' in input.get('#/properties/zusatzliche-personliche-schutzausrustung'):
+            data["zusaetzliche_schutzausrüstung_stoerlichtbogen"] = "x"
     # 1
 
     data["art_der_freischaltung"] = input.get('#/properties/edi151f290f01614c52ba070de4f768e1f9')
@@ -84,7 +90,9 @@ def create_pdf(input):
     elif data["ziel_der_abdeckung"] == "vollständiger Berührungsschutz":
         data["art_der_abdeckung"] = ', '.join(input.get('#/properties/edi48105f3d939e4d6c9d7a483ab1e38675'))
     elif data["ziel_der_abdeckung"] == "Abdeckung nicht notwendig":
-        data["art_der_abdeckung"] = input.get('#/properties/edi498bef640c6a45008d44d5992a3a21ac')
+        entfernung_text = input.get('#/properties/edi498bef640c6a45008d44d5992a3a21ac')
+        entfernung_meter = input.get('#/properties/edif94be533f450496584575a6f218b724d')
+        data["art_der_abdeckung"] = "%s %s m" % (entfernung_text, entfernung_meter)
     else:
         data["art_der_abdeckung"] = ""
 
