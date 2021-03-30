@@ -26,20 +26,27 @@ def create_pdf(input):
     # Kopffragen
 
     data["arbeitsstelle"] = input.get('#/properties/arbeitsstelle-arbeitsort')
-    data["datum_uhrzeit"] = input.get('#/properties/datum-und-uhrzeit')
+    jsontime = input.get('#/properties/datum-und-uhrzeit')
+    try:
+        if 'null' in jsontime:
+            datetime = '%s.%s.%s' % (jsontime[8:10], jsontime[5:7], jsontime[:4])
+        else:
+            datetime = '%s.%s.%s %s' % (jsontime[8:10], jsontime[5:7], jsontime[:4], jsontime[11:])
+    except:
+        datetime = jsontime
+    data["datum_uhrzeit"] = datetime
     data["person_anlageverantwortlichkeit"] = input.get('#/properties/person-in-der-rolle-des-anlagenverantwortlichen')
     data["person_arbeitsverantwortlichkeit"] = input.get('#/properties/persone-in-der-rolle-des-arbeitsverantwortlichen')
     data["person_arbeitsausfuehrung"] = input.get('#/properties/arbeitsausfuhrende-person')
 
-    if 'gegen elektrischen Schlag' in input.get('#/properties/zusatzliche-personliche-schutzausrustung-bei-der-1'):
-        data["zusaetzliche_schutzausrüstung_elektrischerschlag"] = "x"
-    else:
-        data["zusaetzliche_schutzausrüstung_elektrischerschlag"] = ""
+    data["zusaetzliche_schutzausrüstung_elektrischerschlag"] = ""
+    data["zusaetzliche_schutzausrüstung_stoerlichtbogen"] = ""
+    if input.get('#/properties/zusatzliche-personliche-schutzausrustung-bei-der-1'):
+        if 'gegen elektrischen Schlag' in input.get('#/properties/zusatzliche-personliche-schutzausrustung-bei-der-1'):
+            data["zusaetzliche_schutzausrüstung_elektrischerschlag"] = "x"
 
-    if 'gegen Störlichtbogen' in input.get('#/properties/zusatzliche-personliche-schutzausrustung-bei-der-1'):
-        data["zusaetzliche_schutzausrüstung_stoerlichtbogen"] = "x"
-    else:
-        data["zusaetzliche_schutzausrüstung_stoerlichtbogen"] = ""
+        if 'gegen Störlichtbogen' in input.get('#/properties/zusatzliche-personliche-schutzausrustung-bei-der-1'):
+            data["zusaetzliche_schutzausrüstung_stoerlichtbogen"] = "x"
 
     if input.get('#/properties/stehen-andere-anlagenteile-weiterhin-unter') == "ja":
         data["abgrenzung_arbeitsbereich_ja"] = "x"
@@ -64,7 +71,7 @@ def create_pdf(input):
     elif data["art_der_freischaltung"] == "Trenner geöffnet":
         data["ausloesestrom"] = input.get('#/properties/edi898bfa6b08564c569e22437b853b6632')
     else:
-        data["ausloesestrom"] = "/"
+        data["ausloesestrom"] = ""
 
     data["ort_der_freischaltung"] = input.get('#/properties/edi2ec234bab6ab4651b9e024e421a6556e')
 
@@ -77,7 +84,7 @@ def create_pdf(input):
     elif data["ort_der_freischaltung"] == "Unterverteilung/Stromkreis":
         data["ort_nroderbezeichnung"] = input.get('#/properties/edibfbdfdc9a9a643bbb5e6de5689a22d74')
     else:
-        data["ort_nroderbezeichnung"] = "/"
+        data["ort_nroderbezeichnung"] = ""
 
     # 2
 
