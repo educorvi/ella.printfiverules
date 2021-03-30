@@ -26,20 +26,37 @@ def create_pdf(input):
     # Kopffragen
 
     data["arbeitsstelle"] = input.get('#/properties/arbeitsstelle-arbeitsort')
-    data["datum_uhrzeit"] = input.get('#/properties/datum-und-uhrzeit')
+    jsontime = input.get('#/properties/datum-und-uhrzeit')
+    try:
+        if 'null' in jsontime:
+            datetime = '%s.%s.%s' % (jsontime[8:10], jsontime[5:7], jsontime[:4])
+        else:
+            datetime = '%s.%s.%s %s' % (jsontime[8:10], jsontime[5:7], jsontime[:4], jsontime[11:])
+    except:
+        datetime = jsontime
+    data["datum_uhrzeit"] = datetime
     data["person_anlageverantwortlichkeit"] = input.get('#/properties/person-in-der-rolle-des-anlagenverantwortlichen')
     data["person_arbeitsverantwortlichkeit"] = input.get('#/properties/person-in-der-rolle-des-arbeitsverantwortlichen')
     data["person_arbeitsausfuehrung"] = input.get('#/properties/arbeitsausfuhrende-person')
 
-    if 'gegen elektrischen Schlag' in input.get('#/properties/zusatzliche-personliche-schutzausrustung-bei-der-1'):
-        data["zusaetzliche_schutzausrüstung_elektrischerschlag"] = "x"
-    else:
-        data["zusaetzliche_schutzausrüstung_elektrischerschlag"] = ""
+    data["zusaetzliche_schutzausrüstung_elektrischerschlag"] = ""
+    data["zusaetzliche_schutzausrüstung_stoerlichtbogen"] = ""
+    if input.get('#/properties/zusatzliche-personliche-schutzausrustung'):
+        if 'gegen elektrischen Schlag' in input.get('#/properties/zusatzliche-personliche-schutzausrustung'):
+            data["zusaetzliche_schutzausrüstung_elektrischerschlag"] = "x"
 
-    if 'gegen Störlichtbogen' in input.get('#/properties/zusatzliche-personliche-schutzausrustung-bei-der-1'):
-        data["zusaetzliche_schutzausrüstung_stoerlichtbogen"] = "x"
+        if 'gegen Störlichtbogen' in input.get('#/properties/zusatzliche-personliche-schutzausrustung'):
+            data["zusaetzliche_schutzausrüstung_stoerlichtbogen"] = "x"
+
+    if input.get('#/properties/wurde-der-arbeitsbereich-z-b-mit-ketten-oder') == "ja":
+        data["abgrenzung_arbeitsbereich_ja"] = "x"
     else:
-        data["zusaetzliche_schutzausrüstung_stoerlichtbogen"] = ""
+        data["abgrenzung_arbeitsbereich_ja"] = ""
+
+    if input.get('#/properties/wurde-der-arbeitsbereich-z-b-mit-ketten-oder') == "nein":
+        data["abgrenzung_arbeitsbereich_nein"] = "x"
+    else:
+        data["abgrenzung_arbeitsbereich_nein"] = ""
 
     if input.get('#/properties/stehen-andere-anlagenteile-weiterhin-unter') == "ja":
         data["abgrenzung_arbeitsbereich_ja"] = "x"
@@ -64,7 +81,7 @@ def create_pdf(input):
     elif data["art_der_freischaltung"] == "Trenner geöffnet":
         data["ausloesestrom"] = input.get('#/properties/edi58b116e71fed42d08e9d13d7ccdcd1d7')
     else:
-        data["ausloesestrom"] = "/"
+        data["ausloesestrom"] = ""
 
     data["ort_der_freischaltung"] = input.get('#/properties/edi5a7f273428f74de489972b6913c66075')
 
@@ -77,7 +94,7 @@ def create_pdf(input):
     elif data["ort_der_freischaltung"] == "Schaltfeld Niederspannung":
         data["ort_nroderbezeichnung"] = input.get('#/properties/edi3859034e0e724ceabb64955eb53fc3d4')
     else:
-        data["ort_nroderbezeichnung"] = "/"
+        data["ort_nroderbezeichnung"] = ""
 
     # 2
 
