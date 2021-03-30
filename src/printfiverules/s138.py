@@ -1,6 +1,12 @@
 from fpdf import FPDF
 from pathlib import Path
 
+def test_value(value):
+    if value:
+        return value
+    else:
+        return u' '
+
 def create_pdf(input):
 
     pdf = FPDF(orientation='P', unit='mm', format='A4')
@@ -26,20 +32,29 @@ def create_pdf(input):
     # Kopffragen
 
     data["arbeitsstelle"] = input.get('#/properties/arbeitsstelle-arbeitsort')
-    data["datum_uhrzeit"] = input.get('#/properties/datum-und-uhrzeit')
+
+    jsontime = input.get('#/properties/datum-und-uhrzeit')
+    try:
+        if 'null' in jsontime:
+            datetime = '%s.%s.%s' % (jsontime[8:10], jsontime[5:7], jsontime[:4])
+        else:
+            datetime = '%s.%s.%s %s' % (jsontime[8:10], jsontime[5:7], jsontime[:4], jsontime[11:])
+    except:
+        datetime = jsontime
+    data["datum_uhrzeit"] = datetime
+
     data["person_anlageverantwortlichkeit"] = input.get('#/properties/person-in-der-rolle-des-anlagenverantwortlichen')
     data["person_arbeitsverantwortlichkeit"] = input.get('#/properties/person-in-der-rolle-des-arbeitsverantwortlichen')
     data["person_arbeitsausfuehrung"] = input.get('#/properties/arbeitsausfuhrende-person')
 
-    if 'gegen elektrischen Schlag' in input.get('#/properties/zusatzliche-personliche-schutzausrustung-bei-der-1'):
-        data["zusaetzliche_schutzausrüstung_elektrischerschlag"] = "x"
-    else:
-        data["zusaetzliche_schutzausrüstung_elektrischerschlag"] = ""
+    data["zusaetzliche_schutzausrüstung_elektrischerschlag"] = ""
+    data["zusaetzliche_schutzausrüstung_stoerlichtbogen"] = ""
+    if input.get('#/properties/zusatzliche-personliche-schutzausrustung-bei-der-1'):
+        if 'gegen elektrischen Schlag' in input.get('#/properties/zusatzliche-personliche-schutzausrustung-bei-der-1'):
+            data["zusaetzliche_schutzausrüstung_elektrischerschlag"] = "x"
 
-    if 'gegen Störlichtbogen' in input.get('#/properties/zusatzliche-personliche-schutzausrustung-bei-der-1'):
-        data["zusaetzliche_schutzausrüstung_stoerlichtbogen"] = "x"
-    else:
-        data["zusaetzliche_schutzausrüstung_stoerlichtbogen"] = ""
+        if 'gegen Störlichtbogen' in input.get('#/properties/zusatzliche-personliche-schutzausrustung-bei-der-1'):
+            data["zusaetzliche_schutzausrüstung_stoerlichtbogen"] = "x"
 
     if input.get('#/properties/stehen-andere-anlagenteile-weiterhin-unter') == "ja":
         data["abgrenzung_arbeitsbereich_ja"] = "x"
@@ -112,12 +127,12 @@ def create_pdf(input):
     # 2A
 
     data["schloss2a"] = input.get('#/properties/edi6b58b8a2d67a43b69428560b9814730b')
-    data["schalten_verboten2a"] = input.get('#/properties/edie1a1691433504d06ada6e73dbe580d80')
+    data["schalten_verboten2a"] = test_value(input.get('#/properties/edie1a1691433504d06ada6e73dbe580d80'))
 
     # 2B
 
     data["schloss2b"] = input.get('#/properties/edibd10b6f4f90a4786b3753ed927e45f44')
-    data["schalten_verboten2b"] = input.get('#/properties/edie9bfd532c7724f989e9841c8dc9b8425')
+    data["schalten_verboten2b"] = test_value(input.get('#/properties/edie9bfd532c7724f989e9841c8dc9b8425'))
 
     # 3A
 
@@ -125,7 +140,7 @@ def create_pdf(input):
 
     # 3B
 
-    data["spannungspruefer3b"] = input.get('#/properties/edi8c4fababb3cd4426894252045c83d088')
+    data["spannungspruefer3b"] = test_value(input.get('#/properties/edi8c4fababb3cd4426894252045c83d088'))
 
     # 3C
 

@@ -41,11 +41,11 @@ def create_pdf(input):
 
     data["zusaetzliche_schutzausrüstung_elektrischerschlag"] = ""
     data["zusaetzliche_schutzausrüstung_stoerlichtbogen"] = ""
-    if input.get('#/properties/zusatzliche-personliche-schutzausrustung'):
-        if 'gegen elektrischen Schlag' in input.get('#/properties/zusatzliche-personliche-schutzausrustung'):
+    if input.get('#/properties/zusatzliche-personliche-schutzausrustung-bei-der-1'):
+        if 'gegen elektrischen Schlag' in input.get('#/properties/zusatzliche-personliche-schutzausrustung-bei-der-1'):
             data["zusaetzliche_schutzausrüstung_elektrischerschlag"] = "x"
 
-        if 'gegen Störlichtbogen' in input.get('#/properties/zusatzliche-personliche-schutzausrustung'):
+        if 'gegen Störlichtbogen' in input.get('#/properties/zusatzliche-personliche-schutzausrustung-bei-der-1'):
             data["zusaetzliche_schutzausrüstung_stoerlichtbogen"] = "x"
     # 1
 
