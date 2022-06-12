@@ -90,6 +90,7 @@ def create_pdf(input):
 
     data["sicherungsart"] = input.get('#/properties/edi24a2debaffea4b28a214b41c730e75ce')
     data["schalten_verboten"] = input.get('#/properties/edifa1a1d574a4149c48b2d1bedcf0ccd29')
+    data["entzogene_nhsicherungen"] = input.get('#/properties/edi3b436631871241a5ab98b695405ea40f')
 
     # 3a
 
@@ -253,6 +254,16 @@ def create_pdf(input):
     pdf.set_text_color(0,0,0)
     pdf.set_xy(12.7, 94)
     pdf.cell(0, 0, data.get("schalten_verboten"))
+
+    pdf.set_font('DGUVMeta-Bold', '', 10)
+    pdf.set_text_color(35,31,32)
+    pdf.set_xy(12.7, 100.5)
+    pdf.cell(0, 0, 'Wurden ausgebaute NH-Sicherungen unbefugtem Zugriff entzogen, z. B. mitgenommen?')
+
+    pdf.set_font('DGUVMeta-Normal', '', 10)
+    pdf.set_text_color(0,0,0)
+    pdf.set_xy(12.7, 105.5)
+    pdf.cell(0, 0, data.get("entzogene_nhsicherungen"))
 
     # 3a Spannungsfreiheit allpolig festgestellt an der Ausschaltstelle
 

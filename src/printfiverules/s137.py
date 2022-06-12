@@ -64,7 +64,7 @@ def create_pdf(input):
 
     if data["art_der_freischaltung"] == "NH-Sicherungen":
         data["ausloesestrom"] = input.get('#/properties/edif626707d3b324fe1ab85fd1bc86cc8e9')
-    elif data["art_der_freischaltung"] == "NH-Lastschaltleister":
+    elif data["art_der_freischaltung"] == "NH-Lastschaltleiste":
         data["ausloesestrom"] = input.get('#/properties/edib889a8d4a3b14e3d9d382d7c1508636b')
     elif data["art_der_freischaltung"] == "Leistungsschalter":
         data["ausloesestrom"] = input.get('#/properties/edi4efaaefb3fc54ad8b0185b34a5fa7b71')

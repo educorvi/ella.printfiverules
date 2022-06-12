@@ -128,11 +128,13 @@ def create_pdf(input):
 
     data["schloss2a"] = input.get('#/properties/edi6b58b8a2d67a43b69428560b9814730b')
     data["schalten_verboten2a"] = test_value(input.get('#/properties/edie1a1691433504d06ada6e73dbe580d80'))
+    data["entzogene_nhsicherungen2a"] = input.get('#/properties/edi65334e8c842f466b94460e91b4b1248c')
 
     # 2B
 
     data["schloss2b"] = input.get('#/properties/edibd10b6f4f90a4786b3753ed927e45f44')
     data["schalten_verboten2b"] = test_value(input.get('#/properties/edie9bfd532c7724f989e9841c8dc9b8425'))
+    data["entzogene_nhsicherungen2b"] = input.get('#/properties/edieb50c9a150fd4458ab9f094935814764')
 
     # 3A
 
@@ -153,10 +155,14 @@ def create_pdf(input):
 
     # 4
 
-    data["euk_wo"] = input.get('#/properties/edice9c36613f404d818c5f11a72028d86e')
+    data["stelle1"] = input.get('#/properties/edidf2b107d0fb8421990387a8f9f14ac19')
+    data["stelle2"] = input.get('#/properties/edic72720a8cc0c4144800d6438b8e0c305')
 
-    if data["euk_wo"] == "Nicht geerdet und kurzentschlossen":
-        data["euk_begruendung"] = input.get('#/properties/edi32732bbb05eb4ad6a23ad8ca3a6ce6af')
+    if data['stelle1'] == "Nicht geerdet und kurzgeschlossen":
+        data["euk_begruendung1"] = input.get('#/properties/edi32732bbb05eb4ad6a23ad8ca3a6ce6af')
+
+    if data['stelle2'] == "Nicht geerdet und kurzgeschlossen":
+        data["euk_begruendung2"] = input.get('#/properties/edi12664ecfd97f435c9ae284f7d50479dc')
 
     # 5
 
@@ -359,6 +365,16 @@ def create_pdf(input):
     pdf.set_xy(12.7, 164)
     pdf.cell(0, 0, data.get("schalten_verboten2a"))
 
+    pdf.set_font('DGUVMeta-Bold', '', 10)
+    pdf.set_text_color(35,31,32)
+    pdf.set_xy(12.7, 169)
+    pdf.cell(0, 0, 'Wurden ausgebaute NH-Sicherungen unbefugtem Zugriff entzogen, z. B. mitgenommen?')
+
+    pdf.set_font('DGUVMeta-Normal', '', 10)
+    pdf.set_text_color(0,0,0)
+    pdf.set_xy(12.7, 174.5)
+    pdf.cell(0, 0, data.get("entzogene_nhsicherungen2a"))
+
     # 2b Gegen Wiedereinschalten gesichert Ausschaltstelle 2
 
     pdf.set_font('DGUVMeta-Bold', '', 10)
@@ -380,6 +396,16 @@ def create_pdf(input):
     pdf.set_text_color(0,0,0)
     pdf.set_xy(12.7, 212.5)
     pdf.cell(0, 0, data.get("schalten_verboten2b"))
+
+    pdf.set_font('DGUVMeta-Bold', '', 10)
+    pdf.set_text_color(35,31,32)
+    pdf.set_xy(12.7, 217.5)
+    pdf.cell(0, 0, 'Wurden ausgebaute NH-Sicherungen unbefugtem Zugriff entzogen, z. B. mitgenommen?')
+
+    pdf.set_font('DGUVMeta-Normal', '', 10)
+    pdf.set_text_color(0,0,0)
+    pdf.set_xy(12.7, 222.5)
+    pdf.cell(0, 0, data.get("entzogene_nhsicherungen2b"))
 
     # 3a Spannungsfreiheit allpolig festgestellt an der Ausschaltstelle1
 
@@ -440,23 +466,46 @@ def create_pdf(input):
     pdf.set_font('DGUVMeta-Bold', '', 10)
     pdf.set_text_color(35,31,32)
     pdf.set_xy(12.7, 94)
-    pdf.cell(0, 0, 'Wo wurde die EuK-Vorrichtung in die NH-Sicherungsunterteile eingebaut?')
+    pdf.cell(0, 0, 'An Ausschaltstelle 1:')
 
     pdf.set_font('DGUVMeta-Normal', '', 10)
     pdf.set_text_color(0,0,0)
-    pdf.set_xy(12.7, 99)
-    pdf.cell(0, 0, data.get("euk_wo"))
+    pdf.set_xy(12.7, 98)
+    pdf.cell(0, 0, data.get("stelle1"))
 
-    if data["euk_wo"] == "Nicht geerdet und kurzentschlossen":
+
+    if data["stelle1"] == "Nicht geerdet und kurzgeschlossen":
         pdf.set_font('DGUVMeta-Bold', '', 10)
         pdf.set_text_color(35, 31, 32)
-        pdf.set_xy(12.7, 105.5)
+        pdf.set_xy(12.7, 102)
         pdf.cell(0, 0, 'Begründung:')
 
         pdf.set_font('DGUVMeta-Normal', '', 10)
         pdf.set_text_color(0, 0, 0)
-        pdf.set_xy(12.7, 110.5)
-        pdf.cell(0, 0, data.get("euk_begruendung"))
+        pdf.set_xy(12.7, 106)
+        pdf.cell(0, 0, data.get("euk_begruendung1"))
+
+    pdf.set_font('DGUVMeta-Bold', '', 10)
+    pdf.set_text_color(35,31,32)
+    pdf.set_xy(12.7, 110)
+    pdf.cell(0, 0, 'An Ausschaltstelle 2:')
+
+    pdf.set_font('DGUVMeta-Normal', '', 10)
+    pdf.set_text_color(0,0,0)
+    pdf.set_xy(12.7, 114)
+    pdf.cell(0, 0, data.get("stelle2"))
+
+
+    if data["stelle2"] == "Nicht geerdet und kurzgeschlossen":
+        pdf.set_font('DGUVMeta-Bold', '', 10)
+        pdf.set_text_color(35, 31, 32)
+        pdf.set_xy(12.7, 118)
+        pdf.cell(0, 0, 'Begründung:')
+
+        pdf.set_font('DGUVMeta-Normal', '', 10)
+        pdf.set_text_color(0, 0, 0)
+        pdf.set_xy(12.7, 122)
+        pdf.cell(0, 0, data.get("euk_begruendung2"))
 
     # 5 Mit der Abdeckung soll erreicht werden
 

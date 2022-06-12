@@ -85,6 +85,7 @@ def create_pdf(input):
     data["sperrelement"] = input.get('#/properties/edi36e713d0f0544afab38414b8d139fcec')
     data["betriebsraum_tuer_verschlossen"] = input.get('#/properties/edi8aeb082703364653b77ecedfb294800c')
     data["schalten_verboten"] = input.get('#/properties/ediff3de7cc99c74d7a8d7fc9430714cc4d')
+    data["entzogene_nhsicherungen"] = input.get('#/properties/edi50f4e39a4ebd44a083133f828058814a')
 
     # 3
 
@@ -255,6 +256,16 @@ def create_pdf(input):
     pdf.set_text_color(0,0,0)
     pdf.set_xy(12.7, 105.5)
     pdf.cell(0, 0, data.get("schalten_verboten"))
+
+    pdf.set_font('DGUVMeta-Bold', '', 10)
+    pdf.set_text_color(35,31,32)
+    pdf.set_xy(12.7, 112)
+    pdf.cell(0, 0, 'Wurden ausgebaute NH-Sicherungen unbefugtem Zugriff entzogen, z. B. mitgenommen?')
+
+    pdf.set_font('DGUVMeta-Normal', '', 10)
+    pdf.set_text_color(0,0,0)
+    pdf.set_xy(12.7, 117)
+    pdf.cell(0, 0, data.get("entzogene_nhsicherungen"))
 
     # 3 Spannungsfreiheit allpolig festgestellt an der Arbeitsstelle
 

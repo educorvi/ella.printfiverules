@@ -68,6 +68,7 @@ def create_pdf(input):
     data["schaltsperre"] = input.get('#/properties/edi70573b75d5564f3c8f8fdbc18587f789')
     data["reparaturschalter"] = input.get('#/properties/edi6d1af6f810f640d981df099510d1ce34')
     data["schalten_verboten"] = input.get('#/properties/edi028811b628af49e880cffa21a1fc62bb')
+    data["entzogene_nhsicherungen"] = input.get('#/properties/edieba539000d8147469e20fee7897533ec')
 
     # 3
 
@@ -189,43 +190,53 @@ def create_pdf(input):
 
     pdf.set_font('DGUVMeta-Bold', '', 10)
     pdf.set_text_color(35,31,32)
-    pdf.set_xy(12.7, 77.5)
+    pdf.set_xy(12.7, 75.5)
     pdf.cell(0, 0, 'Wurde ein Sperrelement eingesetzt, weil der Bereich für Laien zugänglich ist?')
 
     pdf.set_font('DGUVMeta-Normal', '', 10)
     pdf.set_text_color(0,0,0)
-    pdf.set_xy(12.7, 82.5)
+    pdf.set_xy(12.7, 79.5)
     pdf.cell(0, 0, data.get("sperrelement"))
 
     pdf.set_font('DGUVMeta-Bold', '', 10)
     pdf.set_text_color(35,31,32)
-    pdf.set_xy(12.7, 89)
+    pdf.set_xy(12.7, 84.5)
     pdf.cell(0, 0, 'Wurde eine Schaltsperre eingesetzt, weil der Bereich für Laien zugänglich ist?')
 
     pdf.set_font('DGUVMeta-Normal', '', 10)
     pdf.set_text_color(0,0,0)
-    pdf.set_xy(12.7, 94)
+    pdf.set_xy(12.7, 88.5)
     pdf.cell(0, 0, data.get("schaltsperre"))
 
     pdf.set_font('DGUVMeta-Bold', '', 10)
     pdf.set_text_color(35,31,32)
-    pdf.set_xy(12.7, 100.5)
+    pdf.set_xy(12.7, 93.5)
     pdf.cell(0, 0, 'Wurde ein Reparaturschalter mit einem Vorhängeschloss versehen?')
 
     pdf.set_font('DGUVMeta-Normal', '', 10)
     pdf.set_text_color(0,0,0)
-    pdf.set_xy(12.7, 105.5)
+    pdf.set_xy(12.7, 97.5)
     pdf.cell(0, 0, data.get("reparaturschalter"))
 
     pdf.set_font('DGUVMeta-Bold', '', 10)
     pdf.set_text_color(35,31,32)
-    pdf.set_xy(12.7, 112)
+    pdf.set_xy(12.7, 102.5)
     pdf.cell(0, 0, 'Wurde ein Schild "Schalten verboten" zusätzlich angebracht?')
 
     pdf.set_font('DGUVMeta-Normal', '', 10)
     pdf.set_text_color(0,0,0)
-    pdf.set_xy(12.7, 117)
+    pdf.set_xy(12.7, 106.5)
     pdf.cell(0, 0, data.get("schalten_verboten"))
+
+    pdf.set_font('DGUVMeta-Bold', '', 10)
+    pdf.set_text_color(35,31,32)
+    pdf.set_xy(12.7, 111.5)
+    pdf.cell(0, 0, 'Wurden ausgebaute NH-Sicherungen unbefugtem Zugriff entzogen, z. B. mitgenommen?')
+
+    pdf.set_font('DGUVMeta-Normal', '', 10)
+    pdf.set_text_color(0,0,0)
+    pdf.set_xy(12.7, 115.5)
+    pdf.cell(0, 0, data.get("entzogene_nhsicherungen"))
 
     # 3 Spannungsfreiheit allpolig festgestellt an der Arbeitsstelle
 

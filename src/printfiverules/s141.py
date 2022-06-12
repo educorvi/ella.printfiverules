@@ -100,6 +100,7 @@ def create_pdf(input):
 
     data["sicherungsart"] = input.get('#/properties/edicc623be9685e4de8b5963d52533abae5')
     data["schalten_verboten"] = input.get('#/properties/edibc8dd2af0a9446eca50e69cf66ea27c5')
+    data["entzogene_nhsicherungen"] = input.get('#/properties/edi508e957b26e64840ae09259bfa4d9a16')
 
     # 3
 
@@ -260,6 +261,16 @@ def create_pdf(input):
     pdf.set_text_color(0,0,0)
     pdf.set_xy(12.7, 94)
     pdf.cell(0, 0, data.get("schalten_verboten"))
+
+    pdf.set_font('DGUVMeta-Bold', '', 10)
+    pdf.set_text_color(35,31,32)
+    pdf.set_xy(12.7, 100.5)
+    pdf.cell(0, 0, 'Wurden ausgebaute NH-Sicherungen unbefugtem Zugriff entzogen, z. B. mitgenommen?')
+
+    pdf.set_font('DGUVMeta-Normal', '', 10)
+    pdf.set_text_color(0,0,0)
+    pdf.set_xy(12.7, 105.5)
+    pdf.cell(0, 0, data.get("entzogene_nhsicherungen"))
 
     # 3 Spannungsfreiheit allpolig festgestellt an der Arbeitsstelle
 
